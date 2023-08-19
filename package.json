@@ -16,5 +16,10 @@
   "bugs": {
     "url": "https://github.com/matheus-alexandria/04-clean-ddd/issues"
   },
-  "homepage": "https://github.com/matheus-alexandria/04-clean-ddd#readme"
+  "homepage": "https://github.com/matheus-alexandria/04-clean-ddd#readme",
+  "devDependencies": {
+    "@types/node": "20.5.1",
+    "tsx": "3.12.7",
+    "typescript": "5.1.6"
+  }
 }
