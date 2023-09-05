@@ -3,6 +3,7 @@ import { Answer } from "../entities/answer";
 export class AnswerQuestionUseCase {
   execute({ instructorId, questionId, content }: AnswerQuestionUsecase.Params) {
     const answer = new Answer({ content });
+    return answer;
   }
 }
 
