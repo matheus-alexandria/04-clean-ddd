@@ -1,4 +1,4 @@
-export class Instructor {
+class Student {
   public name: string;
 
   constructor(name: string) {
@@ -6,7 +6,7 @@ export class Instructor {
   }
 }
 
-export namespace Instructor {
+export namespace Student {
   export type Params = {
     name: string;
   }
