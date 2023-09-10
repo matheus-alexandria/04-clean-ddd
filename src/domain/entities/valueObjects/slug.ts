@@ -18,10 +18,10 @@ export class Slug {
       .toLowerCase()
       .trim()
       .replace(/\s+/g, '-')
-      .replace(/[^\w]+/g, '-')
+      .replace(/[^\w-]+/g, '')
       .replace(/_/g, '-')
-      .replace(/--/g, '-')
-      .replace(/-$/g, '-')
+      .replace(/--+/g, '-')
+      .replace(/-$/g, '')
       
     return new Slug(slugText);
   }
