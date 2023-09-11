@@ -1,3 +1,5 @@
+import { randomUUID } from "crypto";
+
 export class Entity {
   private _id: string;
 
@@ -6,12 +8,12 @@ export class Entity {
   }
 
   constructor({_id}: Entity.Params) {
-    this._id = _id;
+    this._id = _id ?? randomUUID();
   }
 }
 
 export namespace Entity {
   export type Params = {
-    _id: string;
+    _id?: string;
   }
 }

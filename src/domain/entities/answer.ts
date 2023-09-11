@@ -1,16 +1,17 @@
 import { randomUUID } from "node:crypto";
+import { Entity } from "../../core/entities/entity";
 
-export class Answer {
+export class Answer extends Entity {
   public content: string;
-  public id: string;
   public authorId: string;
   public questionId: string;
 
   constructor({ content, id, authorId, questionId }: Answer.Params) {
+    super({_id: id});
+
     this.content = content;
     this.authorId = authorId;
     this.questionId = questionId;
-    this.id = id ?? randomUUID();
   }
 }
 

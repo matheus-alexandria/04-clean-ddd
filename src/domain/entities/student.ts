@@ -1,12 +1,12 @@
 import { randomUUID } from "node:crypto";
+import { Entity } from "../../core/entities/entity";
 
-class Student {
+class Student extends Entity {
   public name: string;
-  public id: string;
 
   constructor({ name, id }: Student.Params) {
+    super({_id: id});
     this.name = name;
-    this.id = id ?? randomUUID();
   }
 }
 
