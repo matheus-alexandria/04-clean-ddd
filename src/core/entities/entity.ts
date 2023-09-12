@@ -8,15 +8,8 @@ export class Entity<Props> {
     return this._id;
   }
 
-  constructor({ _id, props }: Entity.Params<Props>) {
+  constructor(props: Props, _id?: string) {
     this.props = props;
     this._id = _id ?? randomUUID();
-  }
-}
-
-export namespace Entity {
-  export type Params<Props> = {
-    _id?: string;
-    props: Props;
   }
 }
