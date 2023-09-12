@@ -1,24 +1,21 @@
-import { randomUUID } from "node:crypto";
 import { Entity } from "../../core/entities/entity";
 
-export class Answer extends Entity {
-  public content: string;
-  public authorId: string;
-  public questionId: string;
+export class Answer extends Entity<Answer.Params> {
+  get content() {
+    return this.props.content;
+  }
 
-  constructor({ content, id, authorId, questionId }: Answer.Params) {
-    super({_id: id});
-
-    this.content = content;
-    this.authorId = authorId;
-    this.questionId = questionId;
+  constructor(props: Answer.Params, id?: string) {
+    super({
+      _id: id,
+      props: props
+    });
   }
 }
 
 export namespace Answer {
   export type Params = {
     content: string;
-    id?: string;
     authorId: string;
     questionId: string;
   }

@@ -2,18 +2,12 @@ import { randomUUID } from "node:crypto";
 import { Slug } from "./valueObjects/slug";
 import { Entity } from "../../core/entities/entity";
 
-export class Question extends Entity {
-  public title: string;
-  public content: string;
-  public authorId: string;
-  public slug: Slug;
-
-  constructor({ content, title, authorId, id, slug }: Question.Params) {
-    super({_id: id});
-    this.content = content;
-    this.title = title;
-    this.slug = slug;
-    this.authorId = authorId;
+export class Question extends Entity<Question.Params> {
+  constructor(props: Question.Params, id?: string) {
+    super({
+      _id: id,
+      props: props
+    });
   }
 }
 
@@ -22,7 +16,6 @@ export namespace Question {
     title: string;
     content: string;
     slug: Slug;
-    id?: string;
     authorId: string;
   }
 }
