@@ -1,5 +1,6 @@
 import { Slug } from "./valueObjects/slug";
 import { Entity } from "../../core/entities/entity";
+import { UniqueEntityID } from "../../core/entities/uniqueEntityId";
 
 export class Question extends Entity<Question.Params> {}
 
@@ -8,6 +9,6 @@ export namespace Question {
     title: string;
     content: string;
     slug: Slug;
-    authorId: string;
+    authorId: UniqueEntityID;
   }
 }

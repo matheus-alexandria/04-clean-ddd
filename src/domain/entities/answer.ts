@@ -1,4 +1,5 @@
 import { Entity } from "../../core/entities/entity";
+import { UniqueEntityID } from "../../core/entities/uniqueEntityId";
 
 export class Answer extends Entity<Answer.Params> {
   get content() {
@@ -9,7 +10,7 @@ export class Answer extends Entity<Answer.Params> {
 export namespace Answer {
   export type Params = {
     content: string;
-    authorId: string;
-    questionId: string;
+    authorId: UniqueEntityID;
+    questionId: UniqueEntityID;
   }
 }
