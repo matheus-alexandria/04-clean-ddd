@@ -12,5 +12,7 @@ export namespace Answer {
     content: string;
     authorId: UniqueEntityID;
     questionId: UniqueEntityID;
+    createdAt: Date;
+    updatedAt?: Date;
   }
 }
