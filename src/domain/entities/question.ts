@@ -2,7 +2,14 @@ import { Slug } from "./valueObjects/slug";
 import { Entity } from "../../core/entities/entity";
 import { UniqueEntityID } from "../../core/entities/uniqueEntityId";
 
-export class Question extends Entity<Question.Params> {}
+export class Question extends Entity<Question.Params> {
+  static create(props: Question.Params, id?: UniqueEntityID) {
+    const question = new Question({
+      ...props,
+      createdAt: new Date(),
+    }, id)
+  }
+}
 
 export namespace Question {
   export type Params = {
