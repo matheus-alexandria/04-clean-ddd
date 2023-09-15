@@ -10,7 +10,7 @@ export class AnswerQuestionUseCase {
   async execute({ instructorId, questionId, content }: AnswerQuestionUsecase.Params) {
     const authorId = new UniqueEntityID(instructorId);
     const questionUniqueId = new UniqueEntityID(questionId);
-    const answer = new Answer({ content, authorId, questionId: questionUniqueId, createdAt: new Date() });
+    const answer = Answer.create({authorId, questionId: questionUniqueId, content});
 
     await this.answersRepository.create(answer);
 
