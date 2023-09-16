@@ -7,6 +7,38 @@ export class Answer extends Entity<Answer.Params> {
     return this.props.content;
   }
 
+  set content(content: string) {
+    this.props.content = content;
+  }
+
+  get authorId() {
+    return this.props.authorId;
+  }
+
+  set authorId(authorId: UniqueEntityID) {
+    this.props.authorId = authorId;
+  }
+
+  get questionId() {
+    return this.props.questionId;
+  }
+
+  set questionId(questionId: UniqueEntityID) {
+    this.props.questionId = questionId;
+  }
+
+  get createdAt() {
+    return this.props.createdAt;
+  }
+
+  get updatedAt(): Date | undefined {
+    return this.props.updatedAt;
+  }
+
+  set updatedAt(updatedAt: Date) {
+    this.props.updatedAt = updatedAt;
+  }
+
   static create(props: Optional<Answer.Params, 'createdAt'>, id?: UniqueEntityID) {
     const answer = new Answer({
       ...props,
