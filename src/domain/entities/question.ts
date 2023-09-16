@@ -4,6 +4,34 @@ import { UniqueEntityID } from "../../core/entities/uniqueEntityId";
 import { Optional } from "../../core/types/optional";
 
 export class Question extends Entity<Question.Params> {
+  get title() {
+    return this.props.title;
+  }
+  
+  get content() {
+    return this.props.content;
+  }
+  
+  get slug() {
+    return this.props.slug;
+  }
+  
+  get authorId() {
+    return this.props.authorId;
+  }
+  
+  get bestAnswerId() {
+    return this.props.bestAnswerId;
+  }
+  
+  get createdAt() {
+    return this.props.createdAt;
+  }
+  
+  get updatedAt() {
+    return this.props.updatedAt;
+  }
+  
   static create(props: Optional<Question.Params, 'createdAt'>, id?: UniqueEntityID) {
     const question = new Question({
       ...props,

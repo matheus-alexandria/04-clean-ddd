@@ -31,12 +31,8 @@ export class Answer extends Entity<Answer.Params> {
     return this.props.createdAt;
   }
 
-  get updatedAt(): Date | undefined {
+  get updatedAt() {
     return this.props.updatedAt;
-  }
-
-  set updatedAt(updatedAt: Date) {
-    this.props.updatedAt = updatedAt;
   }
 
   static create(props: Optional<Answer.Params, 'createdAt'>, id?: UniqueEntityID) {
