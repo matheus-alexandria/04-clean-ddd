@@ -31,6 +31,10 @@ export class Question extends Entity<Question.Params> {
   get updatedAt() {
     return this.props.updatedAt;
   }
+
+  get excerpt() {
+    return this.content.substring(0,120).trimEnd().concat('...');
+  }
   
   static create(props: Optional<Question.Params, 'createdAt'>, id?: UniqueEntityID) {
     const question = new Question({
