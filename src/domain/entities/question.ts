@@ -32,13 +32,29 @@ export class Question extends Entity<Question.Params> {
     return this.props.updatedAt;
   }
 
+  private touch() {
+    this.props.updatedAt = new Date();
+  }
+
   get excerpt() {
     return this.content.substring(0,120).trimEnd().concat('...');
   }
+
+  set content(content: string) {
+    this.props.content = content;
+    this.touch(); 
+  }
+
+  set title(title: string) {
+    this.props.title = title;
+    this.props.slug = Slug.createFromText(title);
+    this.touch();
+  }
   
-  static create(props: Optional<Question.Params, 'createdAt'>, id?: UniqueEntityID) {
+  static create(props: Optional<Question.Params, 'createdAt' | 'slug'>, id?: UniqueEntityID) {
     const question = new Question({
       ...props,
+      slug: Slug.createFromText(props.title),
       createdAt: new Date(),
     }, id );
 
