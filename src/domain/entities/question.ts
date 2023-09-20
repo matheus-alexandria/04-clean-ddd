@@ -50,6 +50,11 @@ export class Question extends Entity<Question.Params> {
     this.props.slug = Slug.createFromText(title);
     this.touch();
   }
+
+  set bestAnswerId(bestAnswerId: UniqueEntityID | undefined) {
+    this.props.bestAnswerId = bestAnswerId;
+    this.touch(); 
+  }
   
   static create(props: Optional<Question.Params, 'createdAt' | 'slug'>, id?: UniqueEntityID) {
     const question = new Question({
@@ -68,7 +73,7 @@ export namespace Question {
     content: string;
     slug: Slug;
     authorId: UniqueEntityID;
-    bestAnswerId: UniqueEntityID;
+    bestAnswerId?: UniqueEntityID;
     createdAt: Date;
     updatedAt?: Date;
   }
