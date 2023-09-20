@@ -1,6 +1,6 @@
-import { Entity } from "../../core/entities/entity";
-import { UniqueEntityID } from "../../core/entities/uniqueEntityId";
-import { Optional } from "../../core/types/optional";
+import { Entity } from "@core/entities/entity";
+import { UniqueEntityID } from "@core/entities/uniqueEntityId";
+import { Optional } from "@core/types/optional";
 
 export class Answer extends Entity<Answer.Params> {
   get content() {

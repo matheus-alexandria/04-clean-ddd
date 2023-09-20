@@ -1,5 +1,5 @@
-import { Entity } from "../../core/entities/entity";
-import { UniqueEntityID } from "../../core/entities/uniqueEntityId";
+import { Entity } from "@core/entities/entity";
+import { UniqueEntityID } from "@core/entities/uniqueEntityId";
 
 export class Instructor extends Entity<Instructor.Params> {
   get name() {
