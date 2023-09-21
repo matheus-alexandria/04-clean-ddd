@@ -1,27 +1,25 @@
-import { UniqueEntityID } from "@core/entities/uniqueEntityId";
-import { Answer } from "../entities/answer";
-import { AnswersRepository } from "../repositories/answersRepository";
+import { UniqueEntityID } from '@core/entities/uniqueEntityId';
+import { Answer } from '../entities/answer';
+import { AnswersRepository } from '../repositories/answersRepository';
 
 export class AnswerQuestionUseCase {
-  constructor(
+	constructor(
     private answersRepository: AnswersRepository
-  ) {}
+	) {}
 
-  async execute({ instructorId, questionId, content }: AnswerQuestionUsecase.Params) {
-    const authorId = new UniqueEntityID(instructorId);
-    const questionUniqueId = new UniqueEntityID(questionId);
-    const answer = Answer.create({authorId, questionId: questionUniqueId, content});
+	async execute({ instructorId, questionId, content }: AnswerQuestionUsecaseParams) {
+		const authorId = new UniqueEntityID(instructorId);
+		const questionUniqueId = new UniqueEntityID(questionId);
+		const answer = Answer.create({authorId, questionId: questionUniqueId, content});
 
-    await this.answersRepository.create(answer);
+		await this.answersRepository.create(answer);
 
-    return answer;
-  }
+		return answer;
+	}
 }
 
-export namespace AnswerQuestionUsecase {
-  export type Params = {
-    instructorId: string;
-    questionId: string;
-    content: string;
-  }
+interface AnswerQuestionUsecaseParams {
+  instructorId: string;
+  questionId: string;
+  content: string;
 }

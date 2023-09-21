@@ -1,19 +1,17 @@
-import { Entity } from "@core/entities/entity";
-import { UniqueEntityID } from "@core/entities/uniqueEntityId";
+import { Entity } from '@core/entities/entity';
+import { UniqueEntityID } from '@core/entities/uniqueEntityId';
 
-class Student extends Entity<Student.Params> {
-  get name() {
-    return this.props.name;
-  }
+export class Student extends Entity<StudentProps> {
+	get name() {
+		return this.props.name;
+	}
 
-  static create(props: Student.Params, id?: UniqueEntityID) {
-    const student = new Student(props, id);
-    return student;
-  }
+	static create(props: StudentProps, id?: UniqueEntityID) {
+		const student = new Student(props, id);
+		return student;
+	}
 }
 
-export namespace Student {
-  export type Params = {
-    name: string;
-  }
+interface StudentProps {
+  name: string;
 }

@@ -20,6 +20,9 @@
   "homepage": "https://github.com/matheus-alexandria/04-clean-ddd#readme",
   "devDependencies": {
     "@types/node": "20.5.1",
+    "@typescript-eslint/eslint-plugin": "6.7.2",
+    "@typescript-eslint/parser": "6.7.2",
+    "eslint": "8.49.0",
     "tsx": "3.12.7",
     "typescript": "5.1.6",
     "vite-tsconfig-paths": "4.2.1",
