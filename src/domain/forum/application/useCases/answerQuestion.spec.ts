@@ -1,6 +1,6 @@
 import { AnswerQuestionUseCase } from './answerQuestion';
 import { AnswersRepository } from '../repositories/answersRepository';
-import { Answer } from '../entities/answer';
+import { Answer } from '@domain/forum/enterprise/entities/answer';
 import { UniqueEntityID } from '@core/entities/uniqueEntityId';
 
 const fakeAnswersRepository: AnswersRepository = {
