@@ -2,7 +2,7 @@ import { Question } from '@domain/forum/enterprise/entities/question';
 import { QuestionsRepository } from '../repositories/questionsRepository';
 import { UniqueEntityID } from '@core/entities/uniqueEntityId';
 
-export class CreateQuestionnUseCase {
+export class CreateQuestionUseCase {
 	constructor(
     private questionsRepository: QuestionsRepository
 	) {}
@@ -11,7 +11,7 @@ export class CreateQuestionnUseCase {
 		authorId,
 		title,
 		content 
-	}: CreateQuestionnUseCaseRequest): Promise<CreateQuestionnUseCaseResponse> {
+	}: CreateQuestionUseCaseRequest): Promise<CreateQuestionUseCaseResponse> {
 		const question = Question.create({
 			authorId: new UniqueEntityID(authorId),
 			title,
@@ -26,12 +26,12 @@ export class CreateQuestionnUseCase {
 	}
 }
 
-interface CreateQuestionnUseCaseRequest {
+interface CreateQuestionUseCaseRequest {
   authorId: string;
   title: string;
   content: string;
 }
 
-interface CreateQuestionnUseCaseResponse {
+interface CreateQuestionUseCaseResponse {
   question: Question; 
 }
