@@ -1,19 +1,37 @@
+import { Question } from '@domain/forum/enterprise/entities/question';
 import { QuestionsRepository } from '../repositories/questionsRepository';
+import { UniqueEntityID } from '@core/entities/uniqueEntityId';
 
 export class CreateQuestionnUseCase {
 	constructor(
     private questionsRepository: QuestionsRepository
 	) {}
 
-	async execute({ data }: CreateQuestionnUseCaseRequest): Promise<CreateQuestionnUseCaseResponse> {
-		return Promise.resolve({ res: data });
+	async execute({ 
+		authorId,
+		title,
+		content 
+	}: CreateQuestionnUseCaseRequest): Promise<CreateQuestionnUseCaseResponse> {
+		const question = Question.create({
+			authorId: new UniqueEntityID(authorId),
+			title,
+			content
+		});
+
+		await this.questionsRepository.create(question);
+
+		return {
+			question
+		};
 	}
 }
 
 interface CreateQuestionnUseCaseRequest {
-  data: string;
+  authorId: string;
+  title: string;
+  content: string;
 }
 
 interface CreateQuestionnUseCaseResponse {
-  res: string;
+  question: Question; 
 }
