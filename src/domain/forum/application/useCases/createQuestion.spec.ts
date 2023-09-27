@@ -1,6 +1,7 @@
 import { Question } from '@domain/forum/enterprise/entities/question';
 import { CreateQuestionUseCase } from './createQuestion';
 import { QuestionsRepository } from '../repositories/questionsRepository';
+import { UniqueEntityID } from '@core/entities/uniqueEntityId';
 
 const fakeQuestionsRepository: QuestionsRepository = {
 	create: async (question: Question): Promise<void> => {
@@ -18,4 +19,5 @@ it('should be able to create a new question', async () => {
 	});
 
 	expect(question.title).toEqual('Nova pergunta');
+	expect(question.id).toBeInstanceOf(UniqueEntityID);
 });
