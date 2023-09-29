@@ -1,23 +1,23 @@
-import { Question } from '@domain/forum/enterprise/entities/question';
 import { CreateQuestionUseCase } from './createQuestion';
-import { QuestionsRepository } from '../repositories/questionsRepository';
 import { UniqueEntityID } from '@core/entities/uniqueEntityId';
+import { InMemoryQuestionsRepository } from '__tests__/repositories/inMemoryQuestionsRepository';
 
-const fakeQuestionsRepository: QuestionsRepository = {
-	create: async (question: Question): Promise<void> => {
-		return;
-	}
-};
+let inMemoryQuestionsRepository: InMemoryQuestionsRepository;
+let sut: CreateQuestionUseCase;
 
-it('should be able to create a new question', async () => {
-	const createQuestionnUseCase = new CreateQuestionUseCase(fakeQuestionsRepository);
-
-	const { question } = await createQuestionnUseCase.execute({
-		authorId: 'abdce',
-		title: 'Nova pergunta',
-		content: 'Conteudo da pergunta'
+describe('Create Question', () => {
+	beforeEach(() => {
+		inMemoryQuestionsRepository = new InMemoryQuestionsRepository();
+		sut = new CreateQuestionUseCase(inMemoryQuestionsRepository);
 	});
-
-	expect(question.title).toEqual('Nova pergunta');
-	expect(question.id).toBeInstanceOf(UniqueEntityID);
+	it('should be able to create a new question', async () => {
+		const { question } = await sut.execute({
+			authorId: 'abdce',
+			title: 'Nova pergunta',
+			content: 'Conteudo da pergunta'
+		});
+  
+		expect(question.title).toEqual('Nova pergunta');
+		expect(question.id).toBeInstanceOf(UniqueEntityID);
+	});
 });

@@ -1,23 +1,23 @@
-import { AnswerQuestionUseCase } from './answerQuestion';
-import { AnswersRepository } from '../repositories/answersRepository';
-import { Answer } from '@domain/forum/enterprise/entities/answer';
 import { UniqueEntityID } from '@core/entities/uniqueEntityId';
+import { InMemoryAnswersRepository } from '@test/repositories/inMemoryAnswersRepository';
+import { AnswerQuestionUseCase } from './answerQuestion';
 
-const fakeAnswersRepository: AnswersRepository = {
-	create: async (answer: Answer): Promise<void> => {
-		return;
-	}
-};
+let inMemoryAnswersRepository: InMemoryAnswersRepository;
+let sut: AnswerQuestionUseCase;
 
-it('should be able to create an answer', async () => {
-	const answerQuestionUseCase = new AnswerQuestionUseCase(fakeAnswersRepository);
-
-	const answer = await answerQuestionUseCase.execute({
-		instructorId: 'abdce',
-		questionId: '12345',
-		content: 'Nova resposta'
+describe('Answer Question', () => {
+	beforeEach(() => {
+		inMemoryAnswersRepository = new InMemoryAnswersRepository();
+		sut = new AnswerQuestionUseCase(inMemoryAnswersRepository);
 	});
-
-	expect(answer.content).toEqual('Nova resposta');
-	expect(answer.authorId).toBeInstanceOf(UniqueEntityID);
+	it('should be able to create answer a question', async () => {
+		const answer = await sut.execute({
+			instructorId: '1',
+			questionId: '1',
+			content: 'Resposta da pergunta'
+		});
+  
+		expect(answer.content).toEqual('Resposta da pergunta');
+		expect(answer.authorId).toBeInstanceOf(UniqueEntityID);
+	});
 });
