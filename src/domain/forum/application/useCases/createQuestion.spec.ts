@@ -19,5 +19,6 @@ describe('Create Question', () => {
   
 		expect(question.title).toEqual('Nova pergunta');
 		expect(question.id).toBeInstanceOf(UniqueEntityID);
+		expect(inMemoryQuestionsRepository.questions[0].id).toEqual(question.id);
 	});
 });

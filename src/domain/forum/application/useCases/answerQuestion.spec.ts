@@ -19,5 +19,6 @@ describe('Answer Question', () => {
   
 		expect(answer.content).toEqual('Resposta da pergunta');
 		expect(answer.authorId).toBeInstanceOf(UniqueEntityID);
+		expect(inMemoryAnswersRepository.answers[0].id).toEqual(answer.id);
 	});
 });
