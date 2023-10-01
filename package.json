@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/matheus-alexandria/04-clean-ddd#readme",
   "devDependencies": {
+    "@faker-js/faker": "8.1.0",
     "@types/node": "20.5.1",
     "@typescript-eslint/eslint-plugin": "6.7.2",
     "@typescript-eslint/parser": "6.7.2",
