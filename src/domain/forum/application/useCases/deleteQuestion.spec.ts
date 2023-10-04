@@ -29,9 +29,11 @@ describe('Delete Question', () => {
 			new UniqueEntityID('question-1')
 		);
   
-		await expect(() => sut.execute({
-			authorId: 'author-2',
-			questionId: 'question-1',
-		})).rejects.toThrowError();
+		await expect(
+			sut.execute({
+				authorId: 'author-2',
+				questionId: 'question-1',
+			})
+		).rejects.toThrowError();
 	});
 });
