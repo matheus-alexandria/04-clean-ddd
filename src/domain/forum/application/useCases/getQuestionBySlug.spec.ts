@@ -20,4 +20,12 @@ describe('Get Question by slug', () => {
   
 		expect(question.title).toEqual('Great question');
 	});
+
+	it('should throw an error if there is no question with the given slug', async () => {
+		await expect(
+			sut.execute({
+				slug: 'unexistent-question'
+			})
+		).rejects.toBeInstanceOf(Error);
+	});
 });
