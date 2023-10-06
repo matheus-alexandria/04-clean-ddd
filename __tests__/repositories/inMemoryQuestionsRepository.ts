@@ -5,7 +5,7 @@ import { faker } from '@faker-js/faker';
 
 export class InMemoryQuestionsRepository implements QuestionsRepository {
 	public questions: Question[] = [];
-
+  
 	async findById(id: string): Promise<Question | null> {
 		const question = this.questions.find((question) => question.id.toString() === id);
 
@@ -41,6 +41,12 @@ export class InMemoryQuestionsRepository implements QuestionsRepository {
 		this.questions.push(question);
     
 		return question;
+	}
+  
+	async save(question: Question): Promise<void> {
+		const questionIndex = this.questions.findIndex((data) => data.id === question.id);
+
+		this.questions[questionIndex] = question;
 	}
 
 	async delete(question: Question): Promise<void> {
