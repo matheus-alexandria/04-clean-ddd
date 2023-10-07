@@ -25,6 +25,12 @@ export class InMemoryAnswersRepository implements AnswersRepository {
 		this.answers.splice(answerIndex, 1);
 	}
 
+	async save(answer: Answer): Promise<void> {
+		const answerIndex = this.answers.findIndex((value) => value.id === answer.id);
+
+		this.answers[answerIndex] = answer;
+	}
+
 	factory(override: Partial<AnswerProps> = {}, id?: UniqueEntityID) {
 		const answer = Answer.create({
 			authorId: new UniqueEntityID(),
