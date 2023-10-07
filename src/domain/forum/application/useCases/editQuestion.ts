@@ -1,3 +1,4 @@
+import { Question } from '@domain/forum/enterprise/entities/question';
 import { QuestionsRepository } from '../repositories/questionsRepository';
 
 export class EditQuestionUseCase {
@@ -10,7 +11,7 @@ export class EditQuestionUseCase {
 		questionId,
 		title,
 		content
-	}: EditQuestionUseCaseRequest): Promise<void> {
+	}: EditQuestionUseCaseRequest): Promise<EditQuestionUseCaseResponse> {
 		const question = await this.questionsRepository.findById(questionId);
 
 		if (!question) {
@@ -25,6 +26,10 @@ export class EditQuestionUseCase {
 		question.content = content;
 
 		await this.questionsRepository.save(question);
+
+		return {
+			question
+		};
 	}
 }
 
@@ -33,4 +38,8 @@ interface EditQuestionUseCaseRequest {
   questionId: string;
   title: string;
   content: string;
+}
+
+interface EditQuestionUseCaseResponse {
+  question: Question;
 }
