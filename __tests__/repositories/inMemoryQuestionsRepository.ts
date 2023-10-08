@@ -1,4 +1,5 @@
 import { UniqueEntityID } from '@core/entities/uniqueEntityId';
+import { PaginationParams } from '@core/repositories/PaginationParams';
 import { QuestionsRepository } from '@domain/forum/application/repositories/questionsRepository';
 import { Question, QuestionProps } from '@domain/forum/enterprise/entities/question';
 import { faker } from '@faker-js/faker';
@@ -24,6 +25,14 @@ export class InMemoryQuestionsRepository implements QuestionsRepository {
 		}
     
 		return question;
+	}
+
+	async findManyRecent({ page }: PaginationParams): Promise<Question[]> {
+		const questions = this.questions
+			.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
+			.slice((page - 1) * 20, page * 20);
+    
+		return questions;
 	}
 
 	async create(question: Question): Promise<void> {
