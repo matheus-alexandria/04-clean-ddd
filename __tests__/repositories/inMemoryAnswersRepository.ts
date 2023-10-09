@@ -1,4 +1,5 @@
 import { UniqueEntityID } from '@core/entities/uniqueEntityId';
+import { PaginationParams } from '@core/repositories/PaginationParams';
 import { AnswersRepository } from '@domain/forum/application/repositories/answersRepository';
 import { Answer, AnswerProps } from '@domain/forum/enterprise/entities/answer';
 import { faker } from '@faker-js/faker';
@@ -13,6 +14,14 @@ export class InMemoryAnswersRepository implements AnswersRepository {
 		}
 
 		return answer;
+	}
+
+	async findManyByQuestionId(questionId: string, { page }: PaginationParams): Promise<Answer[]> {
+		const answers = this.answers
+			.filter((item) => item.questionId.toString() === questionId)
+			.slice((page -1) * 20, page * 20);
+    
+		return answers;
 	}
 
 	async create(answer: Answer): Promise<void> {
