@@ -26,7 +26,7 @@ export class InMemoryAnswerCommentsRepository implements AnswerCommentsRepositor
 		this.items.splice(answerCommentIndex, 1);
 	}
 
-	factory(override: Partial<AnswerCommentProps>, id?: UniqueEntityID) {
+	factory(override: Partial<AnswerCommentProps> = {}, id?: UniqueEntityID) {
 		const answerComment = AnswerComment.create(
 			{
 				answerId: new UniqueEntityID(),
