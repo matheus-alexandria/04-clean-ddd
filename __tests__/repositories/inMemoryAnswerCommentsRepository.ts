@@ -1,4 +1,5 @@
 import { UniqueEntityID } from '@core/entities/uniqueEntityId';
+import { PaginationParams } from '@core/repositories/PaginationParams';
 import { AnswerCommentsRepository } from '@domain/forum/application/repositories/answerCommentsRepository';
 import { AnswerComment, AnswerCommentProps } from '@domain/forum/enterprise/entities/answerComment';
 import { faker } from '@faker-js/faker';
@@ -14,6 +15,14 @@ export class InMemoryAnswerCommentsRepository implements AnswerCommentsRepositor
 		}
 
 		return answerComment;
+	}
+
+	async findManyByAnswerId(answerId: string, { page }: PaginationParams): Promise<AnswerComment[]> {
+		const answerComments = this.items
+			.filter((item) => item.answerId.toString() === answerId)
+			.slice((page - 1) * 20, page * 20);
+
+		return answerComments;
 	}
   
 	async create(answerComment: AnswerComment): Promise<void> {
