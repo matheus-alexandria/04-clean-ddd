@@ -1,5 +1,7 @@
+import { UniqueEntityID } from '@core/entities/uniqueEntityId';
 import { AnswerCommentsRepository } from '@domain/forum/application/repositories/answerCommentsRepository';
-import { AnswerComment } from '@domain/forum/enterprise/entities/answerComment';
+import { AnswerComment, AnswerCommentProps } from '@domain/forum/enterprise/entities/answerComment';
+import { faker } from '@faker-js/faker';
 
 export class InMemoryAnswerCommentsRepository implements AnswerCommentsRepository {
 	public items: AnswerComment[] = [];
@@ -22,5 +24,20 @@ export class InMemoryAnswerCommentsRepository implements AnswerCommentsRepositor
 		const answerCommentIndex = this.items.findIndex((item) => item.id === answerComment.id);
 
 		this.items.splice(answerCommentIndex, 1);
+	}
+
+	factory(override: Partial<AnswerCommentProps>, id?: UniqueEntityID) {
+		const answerComment = AnswerComment.create(
+			{
+				answerId: new UniqueEntityID(),
+				authorId: new UniqueEntityID(),
+				content: faker.lorem.sentence(),
+				...override
+			}, id
+		);
+
+		this.items.push(answerComment);
+
+		return answerComment;
 	}
 }
