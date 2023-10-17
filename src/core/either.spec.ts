@@ -1,8 +1,8 @@
 import { Either, left, right } from './either';
 
-const doSomething = (shouldSucceed: boolean): Either<string, string> => {
+const doSomething = (shouldSucceed: boolean): Either<string, number> => {
 	if (shouldSucceed) {
-		return right('success'); 
+		return right(10); 
 	} else {
 		return left('error'); 
 	}
