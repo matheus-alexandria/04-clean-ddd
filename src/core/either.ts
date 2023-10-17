@@ -1,38 +1,38 @@
 // Success
-export class Right<R> {
+export class Right<R, L> {
 	readonly value: R;
 
 	constructor(value: R) {
 		this.value = value;
 	}
 
-	isRight() {
+	isRight(): this is Right<R, L> {
 		return true;
 	}
 
-	isLeft() {
+	isLeft(): this is Left<L, R> {
 		return false;
 	}
 }
 
 // Error
-export class Left<L> {
+export class Left<L, R> {
 	readonly value: L;
 
 	constructor(value: L) {
 		this.value = value;
 	}
 
-	isRight() {
+	isRight(): this is Right<R, L> {
 		return false;
 	}
 
-	isLeft() {
+	isLeft(): this is Left<L, R> {
 		return true;
 	}
 }
 
-export type Either<L, R> = Left<L> | Right<R>;
+export type Either<L, R> = Left<L, R> | Right<R, L>;
 
 export const right = <L, R>(value: R): Either<L, R> => {
 	return new Right(value);
