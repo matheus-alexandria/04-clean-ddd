@@ -1,5 +1,6 @@
 import { Answer } from '@domain/forum/enterprise/entities/answer';
 import { AnswersRepository } from '../repositories/answersRepository';
+import { Either, left, right } from '@core/either';
 
 export class EditAnswerUseCase {
 	constructor(
@@ -14,20 +15,18 @@ export class EditAnswerUseCase {
 		const answer = await this.answersRepository.findById(answerId);
 
 		if (!answer) {
-			throw new Error('No answer with this id was found.');
+			return left('No answer with this id was found.');
 		}
 
 		if (authorId !== answer.authorId.toString()) {
-			throw new Error('Not allowed.');
+			return left('Not allowed.');
 		}
 
 		answer.content = content;
 
 		await this.answersRepository.save(answer);
 
-		return {
-			answer
-		};
+		return right({ answer });
 	}
 }
 
@@ -37,6 +36,4 @@ interface EditAnswerUseCaseRequest {
   content: string;
 }
 
-interface EditAnswerUseCaseResponse {
-  answer: Answer;
-}
+type EditAnswerUseCaseResponse = Either<string, { answer: Answer }>
