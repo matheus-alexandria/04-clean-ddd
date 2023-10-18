@@ -1,6 +1,7 @@
 import { UniqueEntityID } from '@core/entities/uniqueEntityId';
 import { EditAnswerUseCase } from './editAnswer';
 import { InMemoryAnswersRepository } from '__tests__/repositories/inMemoryAnswersRepository';
+import { NotAllowedError } from './errors/notAllowedError';
 
 let inMemoryAnswersRepository: InMemoryAnswersRepository;
 let sut: EditAnswerUseCase;
@@ -32,12 +33,13 @@ describe('Edit Answer', () => {
 			new UniqueEntityID('answer-1')
 		);
   
-		await expect(
-			sut.execute({
-				authorId: 'author-2',
-				answerId: 'answer-1',
-				content: 'New updated content'
-			})
-		).rejects.toBeInstanceOf(Error);
+		const result = await sut.execute({
+			authorId: 'author-2',
+			answerId: 'answer-1',
+			content: 'New updated content'
+		});
+
+		expect(result.isLeft()).toBe(true);
+		expect(result.value).toBeInstanceOf(NotAllowedError);
 	});
 });
