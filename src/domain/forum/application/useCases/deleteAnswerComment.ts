@@ -1,4 +1,7 @@
+import { Either, left, right } from '@core/either';
 import { AnswerCommentsRepository } from '../repositories/answerCommentsRepository';
+import { NotAllowedError } from './errors/notAllowedError';
+import { ResourceNotFoundError } from './errors/resourceNotFoundError';
 
 export class DeleteAnswerCommentUseCase {
 	constructor(
@@ -8,18 +11,20 @@ export class DeleteAnswerCommentUseCase {
 	async execute({ 
 		authorId,
 		answerCommentId
-	}: DeleteAnswerCommentUseCaseRequest): Promise<void> {
+	}: DeleteAnswerCommentUseCaseRequest): Promise<DeleteAnswerCommentUseCaseResponse> {
 		const answerComment = await this.answerCommentsRepository.findById(answerCommentId);
 
 		if (!answerComment) {
-			throw new Error('No answer with this id was found.');
+			return left(new ResourceNotFoundError());
 		}
 
 		if (authorId !== answerComment.authorId.toString()) {
-			throw new Error('Not allowed.');
+			return left(new NotAllowedError());
 		}
 
 		await this.answerCommentsRepository.delete(answerComment);
+
+		return right({});
 	}
 }
 
@@ -27,3 +32,5 @@ interface DeleteAnswerCommentUseCaseRequest {
   authorId: string;
   answerCommentId: string;
 }
+
+type DeleteAnswerCommentUseCaseResponse = Either<NotAllowedError | ResourceNotFoundError, Record<string, never>>
