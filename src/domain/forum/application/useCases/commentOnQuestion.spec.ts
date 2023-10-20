@@ -1,5 +1,4 @@
 import { CommentOnQuestionUseCase } from './commentOnQuestion';
-import { UniqueEntityID } from '@core/entities/uniqueEntityId';
 import { InMemoryQuestionCommentsRepository } from '@test/repositories/inMemoryQuestionCommentsRepository';
 import { InMemoryQuestionsRepository } from '__tests__/repositories/inMemoryQuestionsRepository';
 
@@ -15,13 +14,15 @@ describe('Create Question Comment', () => {
 	});
 	it('should be able to create a comment on a question', async () => {
 		const question = inMemoryQuestionsRepository.factory();
-		const { questionComment } = await sut.execute({
+		const result = await sut.execute({
 			authorId: 'abdce',
 			questionId: question.id.toString(),
 			content: 'Comment content'
 		});
   
-		expect(questionComment.id).toBeInstanceOf(UniqueEntityID);
-		expect(inMemoryQuestionCommentsRepository.items[0].questionId).toEqual(question.id);
+		expect(result.isRight()).toBe(true);
+		if (result.isRight()) {
+			expect(inMemoryQuestionCommentsRepository.items[0]).toEqual(result.value.questionComment);
+		}
 	});
 });

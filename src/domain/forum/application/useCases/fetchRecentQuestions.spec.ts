@@ -26,11 +26,11 @@ describe('Fetch recent Questions', () => {
 			, new UniqueEntityID('question-2')
 		);
 
-		const { questions } = await sut.execute({
+		const result = await sut.execute({
 			page: 1
 		});
-		expect(questions).toHaveLength(2);
-		expect(questions).toEqual([
+		expect(result.value?.questions).toHaveLength(2);
+		expect(result.value?.questions).toEqual([
 			expect.objectContaining({ content: 'Recent question'}),
 			expect.objectContaining({ content: 'Old question'})
 		]);
@@ -41,10 +41,10 @@ describe('Fetch recent Questions', () => {
 			inMemoryQuestionsRepository.factory();
 		}
 
-		const { questions } = await sut.execute({
+		const result = await sut.execute({
 			page: 2
 		});
   
-		expect(questions).toHaveLength(2);
+		expect(result.value?.questions).toHaveLength(2);
 	});
 });

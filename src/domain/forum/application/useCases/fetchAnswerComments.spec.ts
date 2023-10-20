@@ -16,13 +16,13 @@ describe('Fetch Answer Comments', () => {
 		inMemoryAnswerCommentsRepository.factory({ answerId: new UniqueEntityID('answer-1') });
 		inMemoryAnswerCommentsRepository.factory({ answerId: new UniqueEntityID('no-fetch-answer') });
 
-		const { answerComments } = await sut.execute(
+		const result = await sut.execute(
 			{
 				answerId: 'answer-1',
 				page: 1
 			}
 		);
-		expect(answerComments).toHaveLength(2);
+		expect(result.value?.answerComments).toHaveLength(2);
 	});
 
 	it('should be able to fetch a answer comments with pagination', async () => {
@@ -30,11 +30,11 @@ describe('Fetch Answer Comments', () => {
 			inMemoryAnswerCommentsRepository.factory({ answerId: new UniqueEntityID('answer-1') });
 		}
 
-		const { answerComments } = await sut.execute({
+		const result = await sut.execute({
 			answerId: 'answer-1',
 			page: 2
 		});
   
-		expect(answerComments).toHaveLength(2);
+		expect(result.value?.answerComments).toHaveLength(2);
 	});
 });

@@ -1,6 +1,7 @@
 import { UniqueEntityID } from '@core/entities/uniqueEntityId';
 import { DeleteQuestionUseCase } from './deleteQuestion';
 import { InMemoryQuestionsRepository } from '__tests__/repositories/inMemoryQuestionsRepository';
+import { NotAllowedError } from './errors/notAllowedError';
 
 let inMemoryQuestionsRepository: InMemoryQuestionsRepository;
 let sut: DeleteQuestionUseCase;
@@ -28,12 +29,12 @@ describe('Delete Question', () => {
 			{ authorId: new UniqueEntityID('author-1')}, 
 			new UniqueEntityID('question-1')
 		);
-  
-		await expect(
-			sut.execute({
-				authorId: 'author-2',
-				questionId: 'question-1',
-			})
-		).rejects.toThrowError();
+		const result = await sut.execute({
+			authorId: 'author-2',
+			questionId: 'question-1',
+		});
+
+		expect(result.isLeft()).toBe(true);
+		expect(result.value).toBeInstanceOf(NotAllowedError);
 	});
 });

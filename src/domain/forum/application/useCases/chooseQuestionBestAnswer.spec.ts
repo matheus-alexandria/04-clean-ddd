@@ -2,6 +2,8 @@ import { UniqueEntityID } from '@core/entities/uniqueEntityId';
 import { ChooseQuestionBestAnswerUseCase } from './chooseQuestionBestAnswer';
 import { InMemoryAnswersRepository } from '__tests__/repositories/inMemoryAnswersRepository';
 import { InMemoryQuestionsRepository } from '@test/repositories/inMemoryQuestionsRepository';
+import { ResourceNotFoundError } from './errors/resourceNotFoundError';
+import { NotAllowedError } from './errors/notAllowedError';
 
 let inMemoryQuestionsRepository: InMemoryQuestionsRepository;
 let inMemoryAnswersRepository: InMemoryAnswersRepository;
@@ -20,22 +22,22 @@ describe('Choose Question best Answer', () => {
 			{ questionId: newQuestion.id },
 			new UniqueEntityID('answer-1')
 		);
-		const { question } = await sut.execute({
+		await sut.execute({
 			authorId: newQuestion.authorId.toString(),
 			answerId: answer.id.toString(),
 		});
   
-		expect(question.bestAnswerId?.toString()).toEqual('answer-1');
 		expect(inMemoryQuestionsRepository.questions[0].bestAnswerId).toEqual(answer.id);
 	});
 
 	it('should not be able to choose best answer if answer does not exist', async () => {
-		await expect(
-			sut.execute({
-				authorId: 'author-2',
-				answerId: 'answer-1',
-			})
-		).rejects.toBeInstanceOf(Error);
+		const result = await sut.execute({
+			authorId: 'author-2',
+			answerId: 'answer-1',
+		});
+
+		expect(result.isLeft()).toBe(true);
+		expect(result.value).toBeInstanceOf(ResourceNotFoundError);
 	});
 
 	it('should not be able to choose best answer if question does not exist', async () => {
@@ -43,12 +45,12 @@ describe('Choose Question best Answer', () => {
 			{ authorId: new UniqueEntityID('author-1') },
 			new UniqueEntityID('answer-1')
 		);
-		await expect(
-			sut.execute({
-				authorId: 'author-1',
-				answerId: 'answer-1',
-			})
-		).rejects.toBeInstanceOf(Error);
+		const result = await sut.execute({
+			authorId: 'author-2',
+			answerId: 'answer-1',
+		});
+		expect(result.isLeft()).toBe(true);
+		expect(result.value).toBeInstanceOf(ResourceNotFoundError);
 	});
 
 	it('should not be able to choose best answer if question author is wrong', async () => {
@@ -58,11 +60,11 @@ describe('Choose Question best Answer', () => {
 		const answer = inMemoryAnswersRepository.factory(
 			{ questionId: newQuestion.id }
 		);
-		await expect(
-			sut.execute({
-				authorId: 'author-2',
-				answerId: answer.id.toString(),
-			})
-		).rejects.toBeInstanceOf(Error);
+		const result = await sut.execute({
+			authorId: 'author-2',
+			answerId: answer.id.toString(),
+		});
+		expect(result.isLeft()).toBe(true);
+		expect(result.value).toBeInstanceOf(NotAllowedError);
 	});
 });
