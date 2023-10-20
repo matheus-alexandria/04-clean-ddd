@@ -1,7 +1,7 @@
 import { Slug } from '@domain/forum/enterprise/entities/valueObjects/slug';
-import { Entity } from '@core/entities/entity';
 import { UniqueEntityID } from '@core/entities/uniqueEntityId';
 import { Optional } from '@core/types/optional';
+import { AggregateRoot } from '@core/entities/aggregateRoot';
 
 export interface QuestionProps {
   title: string;
@@ -13,7 +13,7 @@ export interface QuestionProps {
   updatedAt?: Date;
 }
 
-export class Question extends Entity<QuestionProps> {
+export class Question extends AggregateRoot<QuestionProps> {
 	get title() {
 		return this.props.title;
 	}
