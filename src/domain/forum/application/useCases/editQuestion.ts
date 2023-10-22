@@ -3,17 +3,23 @@ import { QuestionsRepository } from '../repositories/questionsRepository';
 import { Either, left, right } from '@core/either';
 import { NotAllowedError } from './errors/notAllowedError';
 import { ResourceNotFoundError } from './errors/resourceNotFoundError';
+import { QuestionAttachmentsRepository } from '../repositories/questionAttachmentsRepository';
+import { UniqueEntityID } from '@core/entities/uniqueEntityId';
+import { QuestionAttachment } from '@domain/forum/enterprise/entities/questionAttachment';
+import { QuestionAttachmentList } from '@domain/forum/enterprise/entities/questionAttachmentList';
 
 export class EditQuestionUseCase {
 	constructor(
-    private questionsRepository: QuestionsRepository
+    private questionsRepository: QuestionsRepository,
+    private questionAttachmentsRepository: QuestionAttachmentsRepository
 	) {}
 
 	async execute({ 
 		authorId,
 		questionId,
 		title,
-		content
+		content,
+		attachmentIds
 	}: EditQuestionUseCaseRequest): Promise<EditQuestionUseCaseResponse> {
 		const question = await this.questionsRepository.findById(questionId);
 
@@ -25,6 +31,22 @@ export class EditQuestionUseCase {
 			return left(new NotAllowedError());
 		}
 
+		const currentQuestionAttachments = await this.questionAttachmentsRepository.findManyByQuestionId(
+			questionId
+		);
+
+		const questionAttachmentList = new QuestionAttachmentList(currentQuestionAttachments);
+
+		const questionAttachments = attachmentIds.map((attachmentId) => {
+			return QuestionAttachment.create({
+				attachmentId: new UniqueEntityID(attachmentId),
+				questionId: question.id
+			});
+		});
+
+		questionAttachmentList.update(questionAttachments);
+
+		question.attachments = questionAttachmentList;
 		question.title = title;
 		question.content = content;
 
@@ -41,6 +63,7 @@ interface EditQuestionUseCaseRequest {
   questionId: string;
   title: string;
   content: string;
+  attachmentIds: string[];
 }
 
 type EditQuestionUseCaseResponse = Either<ResourceNotFoundError | NotAllowedError, { question: Question }>
