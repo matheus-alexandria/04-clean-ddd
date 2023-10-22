@@ -2,6 +2,7 @@ import { Slug } from '@domain/forum/enterprise/entities/valueObjects/slug';
 import { UniqueEntityID } from '@core/entities/uniqueEntityId';
 import { Optional } from '@core/types/optional';
 import { AggregateRoot } from '@core/entities/aggregateRoot';
+import { QuestionAttachmentList } from './questionAttachmentList';
 
 export interface QuestionProps {
   title: string;
@@ -9,6 +10,7 @@ export interface QuestionProps {
   slug: Slug;
   authorId: UniqueEntityID;
   bestAnswerId?: UniqueEntityID;
+  attachments: QuestionAttachmentList
   createdAt: Date;
   updatedAt?: Date;
 }
@@ -42,6 +44,10 @@ export class Question extends AggregateRoot<QuestionProps> {
 		return this.props.updatedAt;
 	}
 
+	get attachments() {
+		return this.props.attachments;
+	}
+
 	private touch() {
 		this.props.updatedAt = new Date();
 	}
@@ -65,11 +71,16 @@ export class Question extends AggregateRoot<QuestionProps> {
 		this.props.bestAnswerId = bestAnswerId;
 		this.touch(); 
 	}
+
+	set attachments(attachments: QuestionAttachmentList) {
+		this.props.attachments = attachments;
+	}
   
-	static create(props: Optional<QuestionProps, 'createdAt' | 'slug'>, id?: UniqueEntityID) {
+	static create(props: Optional<QuestionProps, 'createdAt' | 'slug' | 'attachments'>, id?: UniqueEntityID) {
 		const question = new Question({
 			...props,
 			slug: Slug.createFromText(props.title),
+			attachments: props.attachments ?? new QuestionAttachmentList(),
 			createdAt: props.createdAt ?? new Date(),
 		}, id );
 
