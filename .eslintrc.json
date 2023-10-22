@@ -19,6 +19,7 @@
     ],
     "rules": {
         "@typescript-eslint/no-explicit-any": "off",
+        "no-mixed-spaces-and-tabs": "off",
         "indent": [
             "error",
             "tab"
