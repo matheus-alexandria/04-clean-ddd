@@ -3,9 +3,14 @@ import { PaginationParams } from '@core/repositories/PaginationParams';
 import { QuestionsRepository } from '@domain/forum/application/repositories/questionsRepository';
 import { Question, QuestionProps } from '@domain/forum/enterprise/entities/question';
 import { faker } from '@faker-js/faker';
+import { InMemoryQuestionAttachmentsRepository } from './inMemoryQuestionAttachmentsRepository';
 
 export class InMemoryQuestionsRepository implements QuestionsRepository {
 	public questions: Question[] = [];
+
+	constructor(
+    private inMemoryQuestionAttachmentsRepository: InMemoryQuestionAttachmentsRepository
+	) {}
   
 	async findById(id: string): Promise<Question | null> {
 		const question = this.questions.find((question) => question.id.toString() === id);
@@ -62,5 +67,7 @@ export class InMemoryQuestionsRepository implements QuestionsRepository {
 		const questionIndex = this.questions.findIndex((value) => value.id === question.id);
 
 		this.questions.splice(questionIndex, 1);
+
+		this.inMemoryQuestionAttachmentsRepository.deleteManyByQuestionId(question.id.toString());
 	}
 }
