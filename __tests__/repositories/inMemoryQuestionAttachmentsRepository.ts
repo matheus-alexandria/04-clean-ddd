@@ -7,6 +7,11 @@ export class InMemoryQuestionAttachmentsRepository implements QuestionAttachment
 	async findManyByQuestionId(questionId: string): Promise<QuestionAttachment[]> {
 		return this.attachments.filter((item) => item.questionId.toString() === questionId);
 	}
+
+	async deleteManyByQuestionId(questionId: string): Promise<void> {
+		this.attachments = this.attachments.filter((item) => item.questionId.toString() !== questionId);
+	}
+
 	factory(override: Partial<QuestionAttachmentProps> = {}, id?: UniqueEntityID) {
 		const question = QuestionAttachment.create({
 			attachmentId: new UniqueEntityID(),
