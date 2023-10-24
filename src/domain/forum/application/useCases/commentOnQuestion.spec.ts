@@ -1,14 +1,17 @@
+import { InMemoryQuestionAttachmentsRepository } from '@test/repositories/inMemoryQuestionAttachmentsRepository';
 import { CommentOnQuestionUseCase } from './commentOnQuestion';
 import { InMemoryQuestionCommentsRepository } from '@test/repositories/inMemoryQuestionCommentsRepository';
 import { InMemoryQuestionsRepository } from '__tests__/repositories/inMemoryQuestionsRepository';
 
 let inMemoryQuestionsRepository: InMemoryQuestionsRepository;
 let inMemoryQuestionCommentsRepository: InMemoryQuestionCommentsRepository;
+let inMemoryQuestionAttachmentsRepository: InMemoryQuestionAttachmentsRepository;
 let sut: CommentOnQuestionUseCase;
 
 describe('Create Question Comment', () => {
 	beforeEach(() => {
-		inMemoryQuestionsRepository = new InMemoryQuestionsRepository();
+		inMemoryQuestionAttachmentsRepository = new InMemoryQuestionAttachmentsRepository();
+		inMemoryQuestionsRepository = new InMemoryQuestionsRepository(inMemoryQuestionAttachmentsRepository);
 		inMemoryQuestionCommentsRepository = new InMemoryQuestionCommentsRepository();
 		sut = new CommentOnQuestionUseCase(inMemoryQuestionsRepository, inMemoryQuestionCommentsRepository);
 	});

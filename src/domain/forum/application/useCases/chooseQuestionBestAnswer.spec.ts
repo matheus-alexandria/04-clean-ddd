@@ -4,15 +4,21 @@ import { InMemoryAnswersRepository } from '__tests__/repositories/inMemoryAnswer
 import { InMemoryQuestionsRepository } from '@test/repositories/inMemoryQuestionsRepository';
 import { ResourceNotFoundError } from './errors/resourceNotFoundError';
 import { NotAllowedError } from './errors/notAllowedError';
+import { InMemoryQuestionAttachmentsRepository } from '@test/repositories/inMemoryQuestionAttachmentsRepository';
+import { InMemoryAnswerAttachmentsRepository } from '@test/repositories/inMemoryAnswerAttachmentsRepository';
 
 let inMemoryQuestionsRepository: InMemoryQuestionsRepository;
 let inMemoryAnswersRepository: InMemoryAnswersRepository;
+let inMemoryQuestionAttachmentsRepository: InMemoryQuestionAttachmentsRepository;
+let inMemoryAnswerAttachmentsRepository: InMemoryAnswerAttachmentsRepository;
 let sut: ChooseQuestionBestAnswerUseCase;
 
 describe('Choose Question best Answer', () => {
 	beforeEach(() => {
-		inMemoryAnswersRepository = new InMemoryAnswersRepository();
-		inMemoryQuestionsRepository = new InMemoryQuestionsRepository();
+		inMemoryQuestionAttachmentsRepository = new InMemoryQuestionAttachmentsRepository();
+		inMemoryAnswerAttachmentsRepository = new InMemoryAnswerAttachmentsRepository();
+		inMemoryAnswersRepository = new InMemoryAnswersRepository(inMemoryAnswerAttachmentsRepository);
+		inMemoryQuestionsRepository = new InMemoryQuestionsRepository(inMemoryQuestionAttachmentsRepository);
 		sut = new ChooseQuestionBestAnswerUseCase(inMemoryQuestionsRepository, inMemoryAnswersRepository);
 	});
 

@@ -1,13 +1,16 @@
 import { InMemoryAnswersRepository } from '@test/repositories/inMemoryAnswersRepository';
 import { AnswerQuestionUseCase } from './answerQuestion';
 import { UniqueEntityID } from '@core/entities/uniqueEntityId';
+import { InMemoryAnswerAttachmentsRepository } from '@test/repositories/inMemoryAnswerAttachmentsRepository';
 
 let inMemoryAnswersRepository: InMemoryAnswersRepository;
+let inMemoryAnswerAttachmentsRepository: InMemoryAnswerAttachmentsRepository;
 let sut: AnswerQuestionUseCase;
 
 describe('Answer Question', () => {
 	beforeEach(() => {
-		inMemoryAnswersRepository = new InMemoryAnswersRepository();
+		inMemoryAnswerAttachmentsRepository = new InMemoryAnswerAttachmentsRepository();
+		inMemoryAnswersRepository = new InMemoryAnswersRepository(inMemoryAnswerAttachmentsRepository);
 		sut = new AnswerQuestionUseCase(inMemoryAnswersRepository);
 	});
 	it('should be able to answer a question', async () => {

@@ -1,13 +1,16 @@
 import { InMemoryQuestionsRepository } from '__tests__/repositories/inMemoryQuestionsRepository';
 import { GetQuestionBySlugUseCase } from './getQuestionBySlug';
 import { ResourceNotFoundError } from './errors/resourceNotFoundError';
+import { InMemoryQuestionAttachmentsRepository } from '@test/repositories/inMemoryQuestionAttachmentsRepository';
 
 let inMemoryQuestionsRepository: InMemoryQuestionsRepository;
+let inMemoryQuestionAttachmentsRepository: InMemoryQuestionAttachmentsRepository;
 let sut: GetQuestionBySlugUseCase;
 
 describe('Get Question by slug', () => {
 	beforeEach(() => {
-		inMemoryQuestionsRepository = new InMemoryQuestionsRepository();
+		inMemoryQuestionAttachmentsRepository = new InMemoryQuestionAttachmentsRepository();
+		inMemoryQuestionsRepository = new InMemoryQuestionsRepository(inMemoryQuestionAttachmentsRepository);
 		sut = new GetQuestionBySlugUseCase(inMemoryQuestionsRepository);
 	});
 	it('should be able to get a question by the slug', async () => {

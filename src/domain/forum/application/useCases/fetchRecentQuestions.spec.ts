@@ -1,13 +1,16 @@
 import { UniqueEntityID } from '@core/entities/uniqueEntityId';
 import { FetchRecentQuestionsUseCase } from './fetchRecentQuestions';
 import { InMemoryQuestionsRepository } from '__tests__/repositories/inMemoryQuestionsRepository';
+import { InMemoryQuestionAttachmentsRepository } from '@test/repositories/inMemoryQuestionAttachmentsRepository';
 
 let inMemoryQuestionsRepository: InMemoryQuestionsRepository;
+let inMemoryQuestionAttachmentsRepository: InMemoryQuestionAttachmentsRepository;
 let sut: FetchRecentQuestionsUseCase;
 
 describe('Fetch recent Questions', () => {
 	beforeEach(() => {
-		inMemoryQuestionsRepository = new InMemoryQuestionsRepository();
+		inMemoryQuestionAttachmentsRepository = new InMemoryQuestionAttachmentsRepository();
+		inMemoryQuestionsRepository = new InMemoryQuestionsRepository(inMemoryQuestionAttachmentsRepository);
 		sut = new FetchRecentQuestionsUseCase(inMemoryQuestionsRepository);
 	});
 	it('should be able to fetch created questions', async () => {
