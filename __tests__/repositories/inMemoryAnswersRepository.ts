@@ -3,9 +3,15 @@ import { PaginationParams } from '@core/repositories/PaginationParams';
 import { AnswersRepository } from '@domain/forum/application/repositories/answersRepository';
 import { Answer, AnswerProps } from '@domain/forum/enterprise/entities/answer';
 import { faker } from '@faker-js/faker';
+import { InMemoryAnswerAttachmentsRepository } from './inMemoryAnswerAttachmentsRepository';
 
 export class InMemoryAnswersRepository implements AnswersRepository {
 	public answers: Answer[] = [];
+
+	constructor(
+    private inMemoryAnswerAttachmentRepository: InMemoryAnswerAttachmentsRepository
+	) {}
+
 	async findById(id: string): Promise<Answer | null> {
 		const answer = this.answers.find((answer) => answer.id.toString() === id);
 
@@ -32,6 +38,8 @@ export class InMemoryAnswersRepository implements AnswersRepository {
 		const answerIndex = this.answers.findIndex((value) => value.id === answer.id);
 
 		this.answers.splice(answerIndex, 1);
+
+		this.inMemoryAnswerAttachmentRepository.deleteManyByAnswerId(answer.id.toString());
 	}
 
 	async save(answer: Answer): Promise<void> {
