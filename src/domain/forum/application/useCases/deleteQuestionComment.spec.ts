@@ -1,7 +1,7 @@
 import { UniqueEntityID } from '@core/entities/uniqueEntityId';
 import { DeleteQuestionCommentUseCase } from './deleteQuestionComment';
 import { InMemoryQuestionCommentsRepository } from '__tests__/repositories/inMemoryQuestionCommentsRepository';
-import { NotAllowedError } from './errors/notAllowedError';
+import { NotAllowedError } from '@core/errors/httpErrors/notAllowedError';
 
 let inMemoryQuestionCommentsRepository: InMemoryQuestionCommentsRepository;
 let sut: DeleteQuestionCommentUseCase;

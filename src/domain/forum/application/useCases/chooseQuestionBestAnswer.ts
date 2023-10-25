@@ -2,8 +2,8 @@ import { AnswersRepository } from '../repositories/answersRepository';
 import { Question } from '@domain/forum/enterprise/entities/question';
 import { QuestionsRepository } from '../repositories/questionsRepository';
 import { Either, left, right } from '@core/either';
-import { NotAllowedError } from './errors/notAllowedError';
-import { ResourceNotFoundError } from './errors/resourceNotFoundError';
+import { NotAllowedError } from '@core/errors/errors/notAllowedError';
+import { ResourceNotFoundError } from '@core/errors/errors/resourceNotFoundError';
 
 export class ChooseQuestionBestAnswerUseCase {
 	constructor(

@@ -3,7 +3,7 @@ import { UniqueEntityID } from '@core/entities/uniqueEntityId';
 import { AnswerComment } from '@domain/forum/enterprise/entities/answerComment';
 import { AnswerCommentsRepository } from '../repositories/answerCommentsRepository';
 import { Either, left, right } from '@core/either';
-import { ResourceNotFoundError } from './errors/resourceNotFoundError';
+import { ResourceNotFoundError } from '@core/errors/errors/resourceNotFoundError';
 
 export class CommentOnAnswerUseCase {
 	constructor(

@@ -1,8 +1,8 @@
 import { Question } from '@domain/forum/enterprise/entities/question';
 import { QuestionsRepository } from '../repositories/questionsRepository';
 import { Either, left, right } from '@core/either';
-import { NotAllowedError } from './errors/notAllowedError';
-import { ResourceNotFoundError } from './errors/resourceNotFoundError';
+import { NotAllowedError } from '@core/errors/httpErrors/notAllowedError';
+import { ResourceNotFoundError } from '@core/errors/errors/resourceNotFoundError';
 import { QuestionAttachmentsRepository } from '../repositories/questionAttachmentsRepository';
 import { UniqueEntityID } from '@core/entities/uniqueEntityId';
 import { QuestionAttachment } from '@domain/forum/enterprise/entities/questionAttachment';

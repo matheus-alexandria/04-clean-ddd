@@ -1,7 +1,7 @@
 import { Question } from '@domain/forum/enterprise/entities/question';
 import { QuestionsRepository } from '../repositories/questionsRepository';
 import { Either, left, right } from '@core/either';
-import { ResourceNotFoundError } from './errors/resourceNotFoundError';
+import { ResourceNotFoundError } from '@core/errors/errors/resourceNotFoundError';
 
 export class GetQuestionBySlugUseCase {
 	constructor(

@@ -1,7 +1,7 @@
 import { left, right, Either } from '@core/either';
 import { QuestionCommentsRepository } from '../repositories/questionCommentsRepository';
-import { NotAllowedError } from './errors/notAllowedError';
-import { ResourceNotFoundError } from './errors/resourceNotFoundError';
+import { NotAllowedError } from '@core/errors/httpErrors/notAllowedError';
+import { ResourceNotFoundError } from '@core/errors/errors/resourceNotFoundError';
 
 export class DeleteQuestionCommentUseCase {
 	constructor(
