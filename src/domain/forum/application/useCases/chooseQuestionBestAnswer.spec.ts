@@ -3,7 +3,7 @@ import { ChooseQuestionBestAnswerUseCase } from './chooseQuestionBestAnswer';
 import { InMemoryAnswersRepository } from '__tests__/repositories/inMemoryAnswersRepository';
 import { InMemoryQuestionsRepository } from '@test/repositories/inMemoryQuestionsRepository';
 import { ResourceNotFoundError } from '@core/errors/errors/resourceNotFoundError';
-import { NotAllowedError } from '@core/errors/httpErrors/notAllowedError';
+import { NotAllowedError } from '@core/errors/errors/notAllowedError';
 import { InMemoryQuestionAttachmentsRepository } from '@test/repositories/inMemoryQuestionAttachmentsRepository';
 import { InMemoryAnswerAttachmentsRepository } from '@test/repositories/inMemoryAnswerAttachmentsRepository';
 

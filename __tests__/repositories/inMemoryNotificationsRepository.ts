@@ -30,7 +30,7 @@ export class InMemoryNotificationsRepository implements NotificationsRepository 
 		const notification = Notification.create({
 			recipientId: new UniqueEntityID(),
 			title: faker.lorem.sentence(),
-			content: faker.lorem.text(),
+			content: faker.lorem.sentence(),
 			...override
 		}, id);
 

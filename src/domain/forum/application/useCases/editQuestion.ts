@@ -1,7 +1,7 @@
 import { Question } from '@domain/forum/enterprise/entities/question';
 import { QuestionsRepository } from '../repositories/questionsRepository';
 import { Either, left, right } from '@core/either';
-import { NotAllowedError } from '@core/errors/httpErrors/notAllowedError';
+import { NotAllowedError } from '@core/errors/errors/notAllowedError';
 import { ResourceNotFoundError } from '@core/errors/errors/resourceNotFoundError';
 import { QuestionAttachmentsRepository } from '../repositories/questionAttachmentsRepository';
 import { UniqueEntityID } from '@core/entities/uniqueEntityId';

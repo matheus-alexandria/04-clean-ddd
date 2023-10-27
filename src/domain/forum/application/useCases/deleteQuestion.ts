@@ -1,6 +1,6 @@
 import { Either, left, right } from '@core/either';
 import { QuestionsRepository } from '../repositories/questionsRepository';
-import { NotAllowedError } from '@core/errors/httpErrors/notAllowedError';
+import { NotAllowedError } from '@core/errors/errors/notAllowedError';
 import { ResourceNotFoundError } from '@core/errors/errors/resourceNotFoundError';
 
 export class DeleteQuestionUseCase {

@@ -1,7 +1,7 @@
 import { UniqueEntityID } from '@core/entities/uniqueEntityId';
 import { EditAnswerUseCase } from './editAnswer';
 import { InMemoryAnswersRepository } from '__tests__/repositories/inMemoryAnswersRepository';
-import { NotAllowedError } from '@core/errors/httpErrors/notAllowedError';
+import { NotAllowedError } from '@core/errors/errors/notAllowedError';
 import { InMemoryAnswerAttachmentsRepository } from '@test/repositories/inMemoryAnswerAttachmentsRepository';
 import { AnswerAttachmentList } from '@domain/forum/enterprise/entities/answerAttachmentList';
 

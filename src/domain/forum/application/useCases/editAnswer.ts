@@ -2,7 +2,7 @@ import { Answer } from '@domain/forum/enterprise/entities/answer';
 import { AnswersRepository } from '../repositories/answersRepository';
 import { Either, left, right } from '@core/either';
 import { ResourceNotFoundError } from '@core/errors/errors/resourceNotFoundError';
-import { NotAllowedError } from '@core/errors/httpErrors/notAllowedError';
+import { NotAllowedError } from '@core/errors/errors/notAllowedError';
 import { AnswerAttachmentsRepository } from '../repositories/answerAttachmentsRepository';
 import { AnswerAttachmentList } from '@domain/forum/enterprise/entities/answerAttachmentList';
 import { AnswerAttachment } from '@domain/forum/enterprise/entities/answerAttachment';

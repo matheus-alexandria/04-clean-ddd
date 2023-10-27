@@ -1,7 +1,7 @@
 import { UniqueEntityID } from '@core/entities/uniqueEntityId';
 import { DeleteAnswerUseCase } from './deleteAnswer';
 import { InMemoryAnswersRepository } from '__tests__/repositories/inMemoryAnswersRepository';
-import { NotAllowedError } from '@core/errors/httpErrors/notAllowedError';
+import { NotAllowedError } from '@core/errors/errors/notAllowedError';
 import { InMemoryAnswerAttachmentsRepository } from '@test/repositories/inMemoryAnswerAttachmentsRepository';
 
 let inMemoryAnswersRepository: InMemoryAnswersRepository;
