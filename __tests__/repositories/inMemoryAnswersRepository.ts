@@ -61,7 +61,7 @@ export class InMemoryAnswersRepository implements AnswersRepository {
 			...override
 		}, id);
 
-		this.answers.push(answer);
+		this.create(answer);
     
 		return answer;
 	}
