@@ -44,6 +44,10 @@ export class Answer extends AggregateRoot<AnswerProps> {
 	private touch() {
 		this.props.updatedAt = new Date();
 	}
+  
+	get excerpt() {
+		return this.content.substring(0,120).trimEnd().concat('...');
+	}
 
 	set attachments(attachments: AnswerAttachmentList) {
 		this.props.attachments = attachments;
