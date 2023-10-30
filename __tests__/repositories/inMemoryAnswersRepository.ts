@@ -4,6 +4,7 @@ import { AnswersRepository } from '@domain/forum/application/repositories/answer
 import { Answer, AnswerProps } from '@domain/forum/enterprise/entities/answer';
 import { faker } from '@faker-js/faker';
 import { InMemoryAnswerAttachmentsRepository } from './inMemoryAnswerAttachmentsRepository';
+import { DomainEvents } from '@core/events/domainEvents';
 
 export class InMemoryAnswersRepository implements AnswersRepository {
 	public answers: Answer[] = [];
@@ -32,6 +33,8 @@ export class InMemoryAnswersRepository implements AnswersRepository {
 
 	async create(answer: Answer): Promise<void> {
 		this.answers.push(answer);
+
+		DomainEvents.dispatchEventsForAggregate(answer.id);
 	}
 
 	async delete(answer: Answer): Promise<void> {
@@ -46,6 +49,8 @@ export class InMemoryAnswersRepository implements AnswersRepository {
 		const answerIndex = this.answers.findIndex((value) => value.id === answer.id);
 
 		this.answers[answerIndex] = answer;
+
+		DomainEvents.dispatchEventsForAggregate(answer.id);
 	}
 
 	factory(override: Partial<AnswerProps> = {}, id?: UniqueEntityID) {
