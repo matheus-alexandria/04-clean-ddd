@@ -1,4 +1,5 @@
 import { UniqueEntityID } from '@core/entities/uniqueEntityId';
+import { DomainEvents } from '@core/events/domainEvents';
 import { PaginationParams } from '@core/repositories/PaginationParams';
 import { AnswerCommentsRepository } from '@domain/forum/application/repositories/answerCommentsRepository';
 import { AnswerComment, AnswerCommentProps } from '@domain/forum/enterprise/entities/answerComment';
@@ -27,6 +28,8 @@ export class InMemoryAnswerCommentsRepository implements AnswerCommentsRepositor
   
 	async create(answerComment: AnswerComment): Promise<void> {
 		this.items.push(answerComment);
+
+		DomainEvents.dispatchEventsForAggregate(answerComment.id);
 	}
   
 	async delete(answerComment: AnswerComment): Promise<void> {
@@ -45,7 +48,7 @@ export class InMemoryAnswerCommentsRepository implements AnswerCommentsRepositor
 			}, id
 		);
 
-		this.items.push(answerComment);
+		this.create(answerComment);
 
 		return answerComment;
 	}
