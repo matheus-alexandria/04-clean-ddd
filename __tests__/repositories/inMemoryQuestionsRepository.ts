@@ -4,6 +4,7 @@ import { QuestionsRepository } from '@domain/forum/application/repositories/ques
 import { Question, QuestionProps } from '@domain/forum/enterprise/entities/question';
 import { faker } from '@faker-js/faker';
 import { InMemoryQuestionAttachmentsRepository } from './inMemoryQuestionAttachmentsRepository';
+import { DomainEvents } from '@core/events/domainEvents';
 
 export class InMemoryQuestionsRepository implements QuestionsRepository {
 	public questions: Question[] = [];
@@ -61,6 +62,8 @@ export class InMemoryQuestionsRepository implements QuestionsRepository {
 		const questionIndex = this.questions.findIndex((data) => data.id === question.id);
 
 		this.questions[questionIndex] = question;
+
+		DomainEvents.dispatchEventsForAggregate(question.id);
 	}
 
 	async delete(question: Question): Promise<void> {
