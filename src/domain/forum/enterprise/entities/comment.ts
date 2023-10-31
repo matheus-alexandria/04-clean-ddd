@@ -1,4 +1,4 @@
-import { Entity } from '@core/entities/entity';
+import { AggregateRoot } from '@core/entities/aggregateRoot';
 import { UniqueEntityID } from '@core/entities/uniqueEntityId';
 
 export interface CommentProps {
@@ -9,13 +9,14 @@ export interface CommentProps {
 }
 export abstract class Comment<
   Props extends CommentProps
-> extends Entity<Props> {
+> extends AggregateRoot<Props> {
 	get content() {
 		return this.props.content;
 	}
 
 	set content(content: string) {
 		this.props.content = content;
+		this.touch();
 	}
 
 	get authorId() {
@@ -33,5 +34,4 @@ export abstract class Comment<
 	private touch() {
 		this.props.updatedAt = new Date();
 	}
-
 }
